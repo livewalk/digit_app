@@ -21,8 +21,6 @@ def get_model():
         print(f"Model loaded ...{model}")
     return model
 
-model = get_model()
-
 @app.route("/")
 def index():
     return render_template("index.html")
