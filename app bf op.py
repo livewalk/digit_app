@@ -5,23 +5,13 @@ import io
 import base64
 from tensorflow.keras.models import load_model
 from PIL import ImageOps
-import os, psutil
 
 app = Flask(__name__)
 
 # Load model once at startup
-# model = load_model("digits_recognition_cnn.h5")
+model = load_model("digits_recognition_cnn.h5")
 
-model = None
-
-def get_model():
-    global model
-    if model is None:
-        model = load_model("digits_recognition_cnn.h5")
-        print(f"Model loaded ...{model}")
-    return model
-
-model = get_model()
+print(f"Model loaded ...{model}")
 
 @app.route("/")
 def index():
@@ -30,14 +20,6 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        process = psutil.Process(os.getpid())
-        mem_before = process.memory_info().rss / (1024 ** 2)  # in MB
-
-        model = get_model()
-        
-        mem_after = process.memory_info().rss / (1024 ** 2)
-        print(f"Memory before: {mem_before:.2f} MB, after: {mem_after:.2f} MB")
-        
         # Get the base64 string from the request
         data = request.json["image"]
         #image.save("o_input.png")
