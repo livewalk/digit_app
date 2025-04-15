@@ -1,0 +1,10 @@
+canvas {
+    border: 2px solid #333;
+    background: white;
+    cursor: crosshair;
+  }
+  button {
+    margin: 10px;
+    padding: 5px 10px;
+  }
+  
